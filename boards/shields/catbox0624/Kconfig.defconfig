@@ -1,0 +1,6 @@
+if SHIELD_CATBOX0624
+
+config ZMK_KEYBOARD_NAME
+    default "planck47"
+
+endif # SHIELD_CATBOX0624

@@ -1,0 +1,93 @@
+// Planck 4x12 layout with 2u spacebar (MIT layout)
+// 2u key at bottom row, electrical matrix col 5 (physical cols 6-7, 1-indexed)
+// Electrical matrix col 6 has no physical switch
+// See https://zmk.dev/docs/development/hardware-integration/new-shield
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
+#include "catbox0624-layouts.dtsi"
+
+/ {
+    aliases {
+        led-red = &rgb_r;
+        led-green = &rgb_g;
+        led-blue = &rgb_b;
+    };
+
+    chosen {
+        zmk,physical-layout = &default_layout;
+    };
+
+    kscan: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+        wakeup-source;
+
+        // 12 column pins (C1→C12, left to right)
+        // C6 = 2u spacebar (D15), C7 = no switch (D19)
+        col-gpios
+            = <&pro_micro  5 GPIO_ACTIVE_HIGH>   // C1  → D5/P0.24
+            , <&pro_micro  8 GPIO_ACTIVE_HIGH>   // C2  → D8/P1.04
+            , <&pro_micro  9 GPIO_ACTIVE_HIGH>   // C3  → D9/P1.06
+            , <&pro_micro  4 GPIO_ACTIVE_HIGH>   // C4  → D4/P0.22
+            , <&pro_micro 18 GPIO_ACTIVE_HIGH>   // C5  → D18/P1.15
+            , <&pro_micro 15 GPIO_ACTIVE_HIGH>   // C6  → D15/P1.13 (2u spacebar)
+            , <&pro_micro 19 GPIO_ACTIVE_HIGH>   // C7  → D19/P0.02 (no switch)
+            , <&pro_micro 16 GPIO_ACTIVE_HIGH>   // C8  → D16/P0.10
+            , <&pro_micro 10 GPIO_ACTIVE_HIGH>   // C9  → D10/P0.09
+            , <&pro_micro 14 GPIO_ACTIVE_HIGH>   // C10 → D14/P1.11
+            , <&pro_micro  7 GPIO_ACTIVE_HIGH>   // C11 → D7/P0.11
+            , <&pro_micro  6 GPIO_ACTIVE_HIGH>   // C12 → D6/P1.00
+            ;
+
+        // 4 row pins (R1→R4, top to bottom)
+        row-gpios
+            = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // R1 → D1/P0.06
+            , <&pro_micro 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // R2 → D2/P0.17
+            , <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // R3 → D0/P0.08
+            , <&pro_micro 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // R4 → D3/P0.20
+            ;
+    };
+
+    // Common-anode RGB status LED (VCC ─ LED ─ resistor ─ GPIO)
+    // GPIO_ACTIVE_LOW = LOW turns on (common anode connects to VCC)
+    // R → P1.01  G → P1.02  B → P1.07
+    rgb_leds {
+        compatible = "gpio-leds";
+        rgb_r: led_r {
+            gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
+            label = "RGB Red";
+        };
+        rgb_g: led_g {
+            gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+            label = "RGB Green";
+        };
+        rgb_b: led_b {
+            gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
+            label = "RGB Blue";
+        };
+    };
+
+    default_transform: default_transform {
+        compatible = "zmk,matrix-transform";
+        columns = <12>;
+        rows = <4>;
+
+        // 4 rows x 12 columns
+        // Bottom row: RC(3,5)=2u spacebar, RC(3,6)=empty (no switch)
+        // ╭──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──╮
+        // │0 │1 │2 │3 │4 │5 │6 │7 │8 │9 │10│11│  Row 0
+        // │12│13│14│15│16│17│18│19│20│21│22│23│  Row 1
+        // │24│25│26│27│28│29│30│31│32│33│34│35│  Row 2
+        // │36│37│38│39│40│41│--│42│43│44│45│46│  Row 3 (47 phys keys)
+        // ╰──┴──┴──┴──┴──┴─────╰──┴──┴──┴──┴──╯
+        // cols 1-6:    cols 6-7:      cols 8-12:
+        // 5x 1u        2u space      5x 1u
+        map = <
+            RC(0,0)  RC(0,1)  RC(0,2)  RC(0,3)  RC(0,4)  RC(0,5)  RC(0,6)  RC(0,7)  RC(0,8)  RC(0,9)  RC(0,10)  RC(0,11)
+            RC(1,0)  RC(1,1)  RC(1,2)  RC(1,3)  RC(1,4)  RC(1,5)  RC(1,6)  RC(1,7)  RC(1,8)  RC(1,9)  RC(1,10)  RC(1,11)
+            RC(2,0)  RC(2,1)  RC(2,2)  RC(2,3)  RC(2,4)  RC(2,5)  RC(2,6)  RC(2,7)  RC(2,8)  RC(2,9)  RC(2,10)  RC(2,11)
+            RC(3,0)  RC(3,1)  RC(3,2)  RC(3,3)  RC(3,4)  RC(3,5)  RC(3,6)  RC(3,7)  RC(3,8)  RC(3,9)  RC(3,10)  RC(3,11)
+        >;
+    };
+};

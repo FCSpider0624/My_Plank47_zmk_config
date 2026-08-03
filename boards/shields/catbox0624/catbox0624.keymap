@@ -1,6 +1,6 @@
 // Planck 4x12 keymap with 2u spacebar (MIT layout)
-// 48 bindings (4x12), 47 physical keys:
-//   RC(3,5)=spacebar(2u), RC(3,6)=&none (no physical switch)
+// 47 logical bindings, 47 physical keys:
+//   RC(3,5)=spacebar(2u), RC(3,6)=empty (no switch, not in transform)
 // See https://zmk.dev/docs/development/hardware-integration/new-shield#default-keymap
 
 #include <behaviors.dtsi>
@@ -25,7 +25,7 @@
     &kp ESC    &kp Q      &kp W      &kp E      &kp R      &kp T      &kp Y      &kp U      &kp I      &kp O      &kp P       &kp BSPC
     &kp TAB    &kp A      &kp S      &kp D      &kp F      &kp G      &kp H      &kp J      &kp K      &kp L      &kp SEMI    &kp SQT
     &kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B      &kp N      &kp M      &kp COMMA   &kp DOT    &kp UP      &kp RET
-    &kp LCTRL  &kp LGUI   &kp LALT   &mo 1      &mo 2      &kp SPACE  &none       &kp FSLH    &trans      &kp LEFT   &kp DOWN   &kp RIGHT
+    &kp LCTRL  &kp LGUI   &kp LALT   &mo 1      &mo 2      &kp SPACE  &kp FSLH    &trans      &kp LEFT   &kp DOWN   &kp RIGHT
             >;
         };
 
@@ -35,7 +35,7 @@
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 // │     │  -  │  =  │  [  │  ]  │  4  │  5  │  6  │ RET │ END │PGUP │     │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-// │     │ BAT │ CON  │MUTE │VOL- │  1  │  2  │  3  │     │PGDN │     │     │
+// │     │ BAT │ CON │MUTE │VOL- │  1  │  2  │  3  │     │PGDN │     │     │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 // │     │     │     │     │ADJ  │   0 (2u)   │  .  │     │     │ RET │     │
 // ╰─────┴─────┴─────┴─────┴─────┴─────┬─────┴─────┴─────┴─────┴─────┴─────╯
@@ -43,7 +43,7 @@
     &kp GRAVE   &trans      &trans      &trans      &trans      &kp N7      &kp N8      &kp N9      &kp BSPC    &kp DEL     &kp HOME    &trans
     &trans        &kp MINUS   &kp EQUAL   &kp LBKT    &kp RBKT    &kp N4      &kp N5      &kp N6      &kp RET     &kp END     &kp PG_UP   &trans
     &trans        &ind_bat    &ind_con    &kp C_MUTE  &kp C_VOL_DN &kp N1      &kp N2      &kp N3      &trans      &kp PG_DN   &trans      &trans
-    &trans      &trans      &trans      &trans      &mo 3       &kp N0      &none       &kp DOT     &trans      &trans      &kp RET     &trans
+    &trans      &trans      &trans      &trans      &mo 3       &kp N0      &kp DOT     &trans      &trans      &kp RET     &trans
             >;
         };
 
@@ -51,7 +51,7 @@
 // ╭─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────╮
 // │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │F10  │F11  │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-// │     │F11  │F12  │     │     │     │     │     │     │     │     │     │
+// │     │F12  │     │     │     │     │     │     │     │     │     │     │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 // │     │     │     │     │     │     │     │     │     │     │     │     │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -61,7 +61,7 @@
     &trans        &kp F1      &kp F2      &kp F3      &kp F4      &kp F5      &kp F6      &kp F7      &kp F8      &kp F9      &kp F10     &kp F11
     &trans        &kp F12     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans        &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
-    &trans      &trans      &trans      &mo 3       &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+    &trans      &trans      &trans      &mo 3       &trans      &trans      &trans      &trans      &trans      &trans      &trans
             >;
         };
 
@@ -78,22 +78,22 @@
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &bootloader &studio_unlock
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
-    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
-            >;
-        };
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+        >;
+    };
 
-        // Reserved layers (4-15) — ZMK Studio can edit these without recompiling
-        extra_4  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_5  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_6  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_7  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_8  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_9  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_10 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_11 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_12 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_13 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_14 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
-        extra_15 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+    // Reserved layers (4-15) — ZMK Studio can edit these without recompiling
+        extra_4  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_5  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_6  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_7  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_8  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_9  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_10 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_11 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_12 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_13 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_14 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        extra_15 { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
     };
 };

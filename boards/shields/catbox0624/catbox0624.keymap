@@ -43,7 +43,7 @@
     &kp GRAVE   &trans      &trans      &trans      &trans      &kp N7      &kp N8      &kp N9      &kp BSPC    &kp DEL     &kp HOME    &trans
     &trans        &kp MINUS   &kp EQUAL   &kp LBKT    &kp RBKT    &kp N4      &kp N5      &kp N6      &kp RET     &kp END     &kp PG_UP   &trans
     &trans        &ind_bat    &ind_con    &kp C_MUTE  &kp C_VOL_DN &kp N1      &kp N2      &kp N3      &trans      &kp PG_DN   &trans      &trans
-    &trans      &trans      &trans      &trans      &trans      &kp N0      &none       &kp DOT     &trans      &trans      &kp RET     &trans
+    &trans      &trans      &trans      &trans      &mo 3       &kp N0      &none       &kp DOT     &trans      &trans      &kp RET     &trans
             >;
         };
 
@@ -61,12 +61,28 @@
     &trans        &kp F1      &kp F2      &kp F3      &kp F4      &kp F5      &kp F6      &kp F7      &kp F8      &kp F9      &kp F10     &kp F11
     &trans        &kp F12     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans        &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+    &trans      &trans      &trans      &mo 3       &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+            >;
+        };
+
+        // Adjust layer (3) — activated when LOWER+RAISE are pressed together
+        adjust_layer {
+// ╭─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────╮
+// │     │     │     │     │     │     │     │     │     │     │     │UNLK │
+// ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+// │     │     │     │     │     │     │     │     │     │     │     │     │
+// ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+// │     │     │     │     │     │               │     │     │     │     │     │
+// ╰─────┴─────┴─────┴─────┴─────┴─────┬─────────┴─────┴─────┴─────┴─────┴─────╯
+            bindings = <
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &studio_unlock
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
             >;
         };
 
-        // Reserved layers (3-15) — ZMK Studio can edit these without recompiling
-        extra_3  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
+        // Reserved layers (4-15) — ZMK Studio can edit these without recompiling
         extra_4  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
         extra_5  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };
         extra_6  { status = "reserved"; bindings = < &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >; };

@@ -52,22 +52,7 @@
     // Common-anode RGB status LED (VCC ─ LED ─ resistor ─ GPIO)
     // GPIO_ACTIVE_LOW = LOW turns on (common anode connects to VCC)
     // R → P1.01  G → P1.02  B → P1.07
-    rgb_leds {
-        compatible = "gpio-leds";
-        status = "okay";
-        rgb_r: led_r {
-            gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
-            label = "RGB Red";
-        };
-        rgb_g: led_g {
-            gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
-            label = "RGB Green";
-        };
-        rgb_b: led_b {
-            gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
-            label = "RGB Blue";
-        };
-    };
+    // Defined via &{/leds} below to merge into board's existing gpio-leds node
 
     default_transform: default_transform {
         compatible = "zmk,matrix-transform";
@@ -90,5 +75,22 @@
             RC(2,0)  RC(2,1)  RC(2,2)  RC(2,3)  RC(2,4)  RC(2,5)  RC(2,6)  RC(2,7)  RC(2,8)  RC(2,9)  RC(2,10)  RC(2,11)
             RC(3,0)  RC(3,1)  RC(3,2)  RC(3,3)  RC(3,4)  RC(3,5)  RC(3,7)  RC(3,8)  RC(3,9)  RC(3,10)  RC(3,11)
         >;
+    };
+};
+
+// Merge RGB LEDs into board's existing gpio-leds node (nice!nano has a built-in /leds for blue LED)
+// This ensures we share the same gpio-leds device instance with the widget
+&{/leds} {
+    rgb_r: led_r {
+        gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
+        label = "RGB Red";
+    };
+    rgb_g: led_g {
+        gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+        label = "RGB Green";
+    };
+    rgb_b: led_b {
+        gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
+        label = "RGB Blue";
     };
 };

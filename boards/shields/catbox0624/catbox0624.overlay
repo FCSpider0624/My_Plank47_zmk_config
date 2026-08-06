@@ -54,6 +54,7 @@
     // R → P1.01  G → P1.02  B → P1.07
     rgb_leds {
         compatible = "gpio-leds";
+        status = "okay";
         rgb_r: led_r {
             gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
             label = "RGB Red";

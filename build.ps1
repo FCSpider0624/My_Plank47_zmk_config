@@ -93,19 +93,14 @@ if ($Clean) {
 }
 
 # Build
-$buildParams = @("-b", $BOARD, "-d", "/workspace/$BUILD_DIR")
-if ($SHIELD) { $buildParams += "-DSHIELD=$SHIELD" }
-if ($SNIPPET) { $buildParams += "-S $SNIPPET" }
-if ($CMAKE_ARGS) { $buildParams += $CMAKE_ARGS }
-
-# Also add the zephyr module path so boards/shields are found
-$buildParams += "-DZMK_EXTRA_MODULES=""\`"/workspace/zephyr\`"""
-
-$buildParamsStr = $buildParams -join ' '
-$buildCmd = "west build -s zmk/app $buildParamsStr"
+$shieldArg = if ($SHIELD) { "-DSHIELD=$SHIELD" } else { "" }
+$snippetArg = if ($SNIPPET) { "-S $SNIPPET" } else { "" }
+$cmakeArgs = if ($CMAKE_ARGS) { $CMAKE_ARGS } else { "" }
 
 Write-Host "Building..." -ForegroundColor Yellow
-docker run --rm -v "${ProjectRoot}:/workspace" -w /workspace $IMAGE bash -c $buildCmd
+docker run --rm -v "${ProjectRoot}:/workspace" -w /workspace $IMAGE bash -c @"
+west build -s zmk/app -b $BOARD -d /workspace/$BUILD_DIR $shieldArg $snippetArg $cmakeArgs -DZMK_EXTRA_MODULES=/workspace/zephyr
+"@
 if ($LASTEXITCODE -ne 0) { throw "Build failed" }
 
 # Copy output

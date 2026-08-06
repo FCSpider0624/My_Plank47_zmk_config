@@ -43,12 +43,7 @@ $mirrors = @(
 function Pull-Image {
     Write-Host "Pulling docker image: $IMAGE" -ForegroundColor Yellow
 
-    # Try direct first (might already be configured with mirror in Docker Desktop)
-    Write-Host "  Trying direct pull..." -ForegroundColor DarkGray
-    docker pull $IMAGE
-    if ($LASTEXITCODE -eq 0) { return $true }
-
-    # Try each mirror
+    # Try mirrors first (faster in China)
     foreach ($mirror in $mirrors) {
         $mirrorImage = "$mirror/$IMAGE"
         Write-Host "  Trying mirror: $mirror" -ForegroundColor DarkGray
@@ -61,6 +56,11 @@ function Pull-Image {
         }
         Write-Host "  Mirror $mirror failed, trying next..." -ForegroundColor DarkGray
     }
+
+    # Fallback to direct pull
+    Write-Host "  Trying direct pull..." -ForegroundColor DarkGray
+    docker pull $IMAGE
+    if ($LASTEXITCODE -eq 0) { return $true }
 
     Write-Host "All mirrors failed." -ForegroundColor Red
     return $false

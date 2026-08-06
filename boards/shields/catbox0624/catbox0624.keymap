@@ -68,15 +68,15 @@
         // Adjust layer (3) — activated when LOWER+RAISE are pressed together
         adjust_layer {
 // ╭─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────╮
-// │     │BTCLR│     │     │     │     │     │     │     │     │BOOT │UNLK │
+// │     │     │     │     │     │     │     │     │     │     │BOOT │UNLK │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-// │     │BTNXT│     │     │     │     │     │     │     │     │     │     │
+// │     │     │     │     │     │     │     │     │     │     │     │     │
 // ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 // │     │     │     │     │     │               │     │     │     │     │     │
 // ╰─────┴─────┴─────┴─────┴─────┴─────┬─────────┴─────┴─────┴─────┴─────┴─────╯
             bindings = <
-    &trans      &bt BT_CLR_ALL &trans   &trans      &trans      &trans      &trans      &trans      &trans      &trans      &bootloader &studio_unlock
-    &trans      &bt BT_NXT  &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &bootloader &studio_unlock
+    &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
     &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans      &trans
         >;

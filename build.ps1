@@ -33,9 +33,45 @@ function Invoke-Docker {
 # -------------------------------------------------------------------
 Write-Host "=== ZMK Build: $SHIELD ($BOARD) ===" -ForegroundColor Green
 
-# Pull latest image
-Write-Host "Pulling docker image..." -ForegroundColor Yellow
-docker pull $IMAGE
+# Pull image with mirror fallback
+$mirrors = @(
+    "docker.m.daocloud.io",      # Daocloud
+    "dockerproxy.com",            # Docker Proxy
+    "docker.1ms.run"             # 1ms
+)
+
+function Pull-Image {
+    Write-Host "Pulling docker image: $IMAGE" -ForegroundColor Yellow
+
+    # Try direct first (might already be configured with mirror in Docker Desktop)
+    Write-Host "  Trying direct pull..." -ForegroundColor DarkGray
+    docker pull $IMAGE
+    if ($LASTEXITCODE -eq 0) { return $true }
+
+    # Try each mirror
+    foreach ($mirror in $mirrors) {
+        $mirrorImage = "$mirror/$IMAGE"
+        Write-Host "  Trying mirror: $mirror" -ForegroundColor DarkGray
+        docker pull $mirrorImage
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "  Tagging $mirrorImage -> $IMAGE" -ForegroundColor Gray
+            docker tag $mirrorImage $IMAGE
+            docker rmi $mirrorImage
+            return $true
+        }
+        Write-Host "  Mirror $mirror failed, trying next..." -ForegroundColor DarkGray
+    }
+
+    Write-Host "All mirrors failed." -ForegroundColor Red
+    return $false
+}
+
+if (-not (Pull-Image)) {
+    Write-Host ""
+    Write-Host "Try manually configuring a mirror in Docker Desktop:" -ForegroundColor Yellow
+    Write-Host "  Settings -> Docker Engine -> add: { `"registry-mirrors`": [`"https://your-mirror.m.daocloud.io`"] }" -ForegroundColor Yellow
+    exit 1
+}
 
 # Determine if west init is needed
 $needInit = $false
